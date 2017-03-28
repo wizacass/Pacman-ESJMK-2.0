@@ -243,3 +243,7 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+#Levels DataFiles
+!/[Dd]ebug/levels/
+!/[Dd]ebug/levels/*
