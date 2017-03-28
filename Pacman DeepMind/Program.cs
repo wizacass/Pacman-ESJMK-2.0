@@ -29,6 +29,7 @@
                 game.GameLoop(pgp);
                 game.GameEnd();
 
+            //TODO: Set Flag for Gene isCrossbred : bool
                 rc.AddResult(new ResultItem(game._score, game._turnCounter, pgp.GenesActive));
 
                 do

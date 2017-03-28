@@ -141,7 +141,7 @@ namespace Pacman_DeepMind
                 _turnCounter++;
 
                 level.Draw();
-                //Thread.Sleep(100);
+                Thread.Sleep(100);
 
                 if(_score == _maxScore)
                 {

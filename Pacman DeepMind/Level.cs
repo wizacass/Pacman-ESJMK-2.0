@@ -15,7 +15,7 @@ namespace Pacman_DeepMind
         public int x { get; private set; } //Board size vertical
         public int y { get; private set; } //board size horizontal
  
-        private int _maxScore;
+        private int _maxScore = -2;
 
         public Level(string name)
         {

@@ -33,6 +33,7 @@
             log.Close();
         }
 
+        //TODO: Format Properly
         public static void logList(List<ResultItem> sortedList)
         {
             StreamWriter log = new StreamWriter("SortedData.txt", true);
