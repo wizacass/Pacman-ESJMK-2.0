@@ -81,7 +81,7 @@ namespace Pacman_DeepMind
                 //SetGhostData(ghost.getX(), ghost.getY());
                 //level.Draw();
 
-                PacManEnvironment pe = new PacManEnvironment(level._board, pacman.getX(), pacman.getY(), pacManPrevX, pacManPrevY);       
+                PacManEnvironment pe = new PacManEnvironment(level._board, pacman.getX(), pacman.getY(), pacManPrevX, pacManPrevY, ghost.getX(), ghost.getY());       
                 Directions? directions = pgp.GetMoveDirection(pe);
 
                 pacManPrevX = pacman.getX();
