@@ -247,3 +247,7 @@ ModelManifest.xml
 #Levels DataFiles
 !/[Dd]ebug/levels/
 !/[Dd]ebug/levels/*
+
+#Old Data Logs
+DataOld.txt
+SortedDataOld.txt
