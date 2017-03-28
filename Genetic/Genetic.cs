@@ -1,4 +1,4 @@
-﻿namespace Genetic
+﻿/*namespace Genetic
 {
     public static class Genetic
     {
@@ -7,4 +7,4 @@
 
         }
     }
-}
+}*/

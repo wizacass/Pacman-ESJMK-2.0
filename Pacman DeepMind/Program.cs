@@ -31,11 +31,42 @@
 
                 rc.AddResult(new ResultItem(game._score, game._turnCounter, pgp.GenesActive));
 
-                pgp.RandomMutation();
-
+                do
+                {
+                    pgp.RandomMutation();
+                } while (rc.AreGenesAttempted(pgp.GenesActive));
             }
 
-            List<ResultItem> list = rc.Sort();
+            for (int i = 0; i < 50; i++)
+            {
+                Game game = new Game(pgp);
+
+                game.GameStart();
+                game.GameLoop(pgp);
+                game.GameEnd();
+
+                rc.AddResult(new ResultItem(game._score, game._turnCounter, pgp.GenesActive));
+
+                do
+                {
+                    bool isValidCrossBreed  = false;
+                    bool isCrosbreedFound = pgp.CrossBreed(rc);
+
+                    if (isCrosbreedFound)
+                    {
+                        if (!rc.AreGenesAttempted(pgp.GenesActive))
+                        {
+                            isValidCrossBreed = true;
+                        }
+                    }
+
+                    if (!isValidCrossBreed)
+                        pgp.RandomMutation();
+
+                } while (rc.AreGenesAttempted(pgp.GenesActive));
+            }
+
+            List<ResultItem> list = rc.SortByScore();
             Logger.logList(list);
 
             Logger.logEndSession();
@@ -43,5 +74,7 @@
             //Console.WriteLine("Press any key to exit");
             //Console.ReadKey();
         }
+
+
     }
 }

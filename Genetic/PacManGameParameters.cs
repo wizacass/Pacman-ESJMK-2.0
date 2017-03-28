@@ -12,6 +12,8 @@
             GenesAll.Add(new RunAwayFromGhost2());
             GenesAll.Add(new GoSameDirection());
             GenesAll.Add(new GoStraight());
+            GenesAll.Add(new FindFoodLine());
+            //GenesAll.Add(new FindBetterLine());
 
             InitializeActiveGenes();
         }

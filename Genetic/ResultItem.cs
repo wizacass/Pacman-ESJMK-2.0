@@ -7,10 +7,11 @@
         public int _score;
         public int _turnCount;
 
-        public List<Gene> _listActiveGenes;
+        private List<Gene> _listActiveGenes;
 
         public int Score { get { return _score;  } }
         public int TurnCount { get { return _turnCount; } }
+        public List<Gene> ListActiveGenes { get { return _listActiveGenes; } }
 
         public ResultItem(int score, int turnCount, IEnumerable<Gene> enumerableGenesActive)
         {

@@ -124,6 +124,30 @@ namespace Pacman_DeepMind
             }
         }
 
+        public char SetGhost(int x, int y, char c)
+        {
+            char t = _board[x, y];
+            _board[x, y] = 'G';
+            if (_board[x - 1, y] == 'G')
+            {
+                _board[x - 1, y] = c;
+            }
+            if (_board[x + 1, y] == 'G')
+            {
+                _board[x + 1, y] = c;
+            }
+            if (_board[x, y - 1] == 'G')
+            {
+                _board[x, y - 1] = c;
+            }
+            if (_board[x, y + 1] == 'G')
+            {
+                _board[x, y + 1] = c;
+            }
+
+            return t;
+        }
+
         public int CheckScore(int x, int y, int score, out bool isIdle)
         {
             if (_board[x, y] == '+')

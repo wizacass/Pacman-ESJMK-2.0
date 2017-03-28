@@ -73,17 +73,19 @@
 		/// returns a direction where to go
 		/// </returns>
 		/// </summary>
-		public DIRECTION A_Star(int Start_x, int Start_y, int Finish_x, int Finish_y, DIRECTION current)
+		public DIRECTION A_Star(int Start_x, int Start_y, int Finish_x, int Finish_y)
 		{
 			Open = new List<Node>();
 			Closed = new List<Node>();
 			Neighbors = new List<Node>();
 
-			DIRECTION dir = current;
+			DIRECTION dir = DIRECTION.STOP;
+
 			Current = new Node();
 			Node Start = new Node(Start_x, Start_y);    //Start Node
 			Node Finish = new Node(Finish_x, Finish_y);		//Finish Node
 			Start.d = 0;
+			Start.ParentNode = Start;
 			Open.Add(Start);
 
 			while (true)
@@ -127,41 +129,44 @@
 			}
 
 			temp = Current;
-			//Path.Push(temp);
 
 			while (temp.ParentNode != Start)
-			{
-				//Path.Push(temp.ParentNode);
 				temp = temp.ParentNode;
-			}
-
-			//StreamWriter Out = new StreamWriter("Nodes.txt", true);
-
-			//temp = Path.Pop();
-
-			//Out.WriteLine("({0};{1}) ", temp.x, temp.y);
 
 			if (Start.x < temp.x)
-			{
-				//Out.WriteLine("return DIRECTION.DOWN");
 				dir = DIRECTION.DOWN;
-			}
+			
 			if (Start.x > temp.x)
-			{
-				//Out.WriteLine("return DIRECTION.UP");
 				dir = DIRECTION.UP;
-			}
+
 			if (Start.y < temp.y)
-			{
-				//Out.WriteLine("return DIRECTION.RIGHT");
 				dir = DIRECTION.RIGHT;
-			}
+
 			if (Start.y > temp.y)
-			{
-				//Out.WriteLine("return DIRECTION.LEFT");
 				dir = DIRECTION.LEFT;
+
+			else if (Start.x == temp.x && Start.y == temp.y)
+			{
+				foreach (var n in GetNeighbors(temp, _level))
+				{
+					if (_level.isWalkable[n.x, n.y])
+					{
+
+						if (Start.x < n.x)
+							dir = DIRECTION.DOWN;
+
+						if (Start.x > n.x)
+							dir = DIRECTION.UP;
+
+						if (Start.y < n.y)
+							dir = DIRECTION.RIGHT;
+
+						if (Start.y > n.y)
+							dir = DIRECTION.LEFT;
+					}
+				}
 			}
-			//Out.Close();
+
 			return dir;
 		}
 
@@ -219,7 +224,7 @@
 			if (from.x > 0)		// <
 				Neighbors.Add(new Node(from.x - 1, from.y));
 
-			if (from.y < _level.y)		// \/
+			if (from.y < _level.y)		// V
 				Neighbors.Add(new Node(from.x, from.y + 1));
 
 			return Neighbors;

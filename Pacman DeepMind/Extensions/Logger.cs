@@ -44,7 +44,7 @@
             foreach (var result in sortedList)
             {
                 log.Write(result._score + " \t \t " + result._turnCount + " \t \t ");
-                foreach (var gene in result._listActiveGenes)
+                foreach (var gene in result.ListActiveGenes)
                 {
                     log.Write(gene.geneName + ", ");
                 }

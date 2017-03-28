@@ -8,12 +8,66 @@
     {
         private List<ResultItem> _listResults = new List<ResultItem>();
 
+        private List<List<Gene>> _listOfListsGenesAttempted = new List<List<Gene>>();
+
+        public bool AreGenesAttempted(List<Gene> listGenes)
+        {
+            bool areAttempted = false;
+            int countListGenes = listGenes.Count;
+
+            if (countListGenes == 0)
+                return true;
+
+            foreach (var list in _listOfListsGenesAttempted)
+            {
+                if (countListGenes != list.Count)
+                    continue;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Gene attemptedGene = list[i];
+                    bool isFound = false;
+
+                    foreach (var gene in listGenes)
+                    {
+                        if (gene.GetType() == attemptedGene.GetType())
+                        {
+                            isFound = true;
+                            break;
+                        }
+                    }
+
+                    if (!isFound)
+                        break;
+
+                    if (i == list.Count - 1)
+                        areAttempted = true;
+                }
+
+                if (areAttempted)
+                    break;
+            }
+
+            return areAttempted;
+        }
+
+
         public void AddResult(ResultItem item)
         {
             _listResults.Add(item);
+
+            if (!AreGenesAttempted(item.ListActiveGenes))
+            {
+                List<Gene> attemptedGenes = new List<Gene>();
+
+                foreach (var gene in item.ListActiveGenes)
+                    attemptedGenes.Add(gene);
+
+                _listOfListsGenesAttempted.Add(attemptedGenes);
+            }
         }
 
-        public List<ResultItem> Sort()
+        public List<ResultItem> SortByScore()
         {
             List<ResultItem> listSorted = new List<ResultItem>();
 

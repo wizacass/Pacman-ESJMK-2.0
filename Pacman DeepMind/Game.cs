@@ -64,6 +64,7 @@ namespace Pacman_DeepMind
         public void GameLoop(PacManGameParameters pgp)
         {
             var isWorking = true;
+            var t = ' '; //prev Ghost Position
 
             int? pacManPrevX = null;
             int? pacManPrevY = null;
@@ -97,7 +98,7 @@ namespace Pacman_DeepMind
 
                 if (_isChasing)
                 {
-                    ghost.SetDir(path.A_Star(ghost.getX(), ghost.getY(), pacman.getX(), pacman.getY(), ghost.GetDir()));
+                    ghost.SetDir(path.A_Star(ghost.getX(), ghost.getY(), pacman.getX(), pacman.getY()));
                     _aiCounter++;
                     if (_aiCounter > 20)
                     {
@@ -108,7 +109,7 @@ namespace Pacman_DeepMind
                 }
                 else
                 {
-                    ghost.SetDir(path.A_Star(ghost.getX(), ghost.getY(), 16, 27, ghost.GetDir()));
+                    ghost.SetDir(path.A_Star(ghost.getX(), ghost.getY(), level.gX, level.gY));
                     _aiCounter++;
                     if (_aiCounter > 10)
                     {
@@ -121,7 +122,7 @@ namespace Pacman_DeepMind
                 ghost.Movement();
 
                 SetPacManData(pacman.getX(), pacman.getY());
-                SetGhostData(ghost.getX(), ghost.getY());
+                t = SetGhostData(ghost.getX(), ghost.getY(), t);
 
                 pacman.Update();
                 ghost.Update();
@@ -140,7 +141,7 @@ namespace Pacman_DeepMind
                 _turnCounter++;
 
                 level.Draw();
-                Thread.Sleep(100);
+                //Thread.Sleep(100);
 
                 if(_score == _maxScore)
                 {
@@ -169,9 +170,10 @@ namespace Pacman_DeepMind
             level.SetPac(pX, pY);
         }
 
-        private void SetGhostData(int gX, int gY)
+        private char SetGhostData(int gX, int gY, char c)
         {
-            level.SetGhost(gX, gY, ghost.GetDir());
+            var t = level.SetGhost(gX, gY, c);
+            return t;
         }
 
         public void GameEnd()

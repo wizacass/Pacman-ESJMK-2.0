@@ -1,5 +1,7 @@
 ﻿namespace EnvironmentObjects
 {
+    using System.Collections.Generic;
+
     public static class Board
     {
         static public bool LeftMove(int x, int y, char[,] board)
@@ -70,6 +72,83 @@
             }     
 
             return false;
+        }
+
+        static public bool FoodLineUp(int x, int y, char[,] board)
+        {
+            while (board[--x, y] != '#')
+                if (board[x, y] == '+')
+                    return true;
+            return false;
+        }
+
+        static public bool FoodLineDown(int x, int y, char[,] board)
+        {
+            while (board[++x, y] != '#')
+                if (board[x, y] == '+')
+                    return true;
+            return false;
+        }
+
+        static public bool FoodLineLeft(int x, int y, char[,] board)
+        {
+            while (board[x, --y] != '#')
+                if (board[x, y] == '+')
+                    return true;
+            return false;
+        }
+
+        static public bool FoodLineRight(int x, int y, char[,] board)
+        {
+            while (board[x, ++y] != '#')
+                if (board[x, y] == '+')
+                    return true;
+            return false;
+        }
+
+        static public int BestLineUp(int x, int y, char[,] board)
+        {
+            int c = 0;
+            while (board[--x, y] != '#')
+                if (board[x, y] == '+')
+                    c++;
+            return c; 
+        }
+
+        static public int BestLineDown(int x, int y, char[,] board)
+        {
+            int c = 0;
+            while (board[++x, y] != '#')
+                if (board[x, y] == '+')
+                    c++;
+            return c;
+        }
+
+        static public int BestLineLeft(int x, int y, char[,] board)
+        {
+            int c = 0;
+            while (board[x, --y] != '#')
+                if (board[x, y] == '+')
+                    c++;
+            return c;
+        }
+
+        static public int BestLineRight(int x, int y, char[,] board)
+        {
+            int c = 0;
+            while (board[x, ++y] != '#')
+                if (board[x, y] == '+')
+                    c++;
+            return c;
+        }
+
+        static public int BestLine(int[] val)
+        {
+            int m = 0;
+            for (int i = 1; i < 4; i++)
+                if (val[i] > val[m])
+                    m = i;
+            return m;
         }
     }
 }
