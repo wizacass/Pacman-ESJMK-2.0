@@ -33,6 +33,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoNotGoWhereGhostIs.cs" />
     <Compile Include="FindBetterLine.cs" />
     <Compile Include="FindFoodLine.cs" />
     <Compile Include="Gene.cs" />

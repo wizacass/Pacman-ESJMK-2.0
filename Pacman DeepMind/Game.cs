@@ -81,7 +81,19 @@ namespace Pacman_DeepMind
                 //SetGhostData(ghost.getX(), ghost.getY());
                 //level.Draw();
 
+<<<<<<< HEAD
                 PacManEnvironment pe = new PacManEnvironment(level._board, pacman.getX(), pacman.getY(), pacManPrevX, pacManPrevY, ghost.getX(), ghost.getY());       
+=======
+                PacManEnvironment pe = new PacManEnvironment(
+					level._board,
+					pacman.getX(),
+					pacman.getY(),
+					pacManPrevX,
+					pacManPrevY,
+					ghost.getX(),
+					ghost.getY()
+					);       
+>>>>>>> refs/remotes/origin/genes
                 Directions? directions = pgp.GetMoveDirection(pe);
 
                 pacManPrevX = pacman.getX();
@@ -140,8 +152,13 @@ namespace Pacman_DeepMind
 
                 _turnCounter++;
 
+<<<<<<< HEAD
                 level.Draw();
                 Thread.Sleep(100);
+=======
+                //level.Draw();
+                //Thread.Sleep(100);
+>>>>>>> refs/remotes/origin/genes
 
                 if(_score == _maxScore)
                 {
