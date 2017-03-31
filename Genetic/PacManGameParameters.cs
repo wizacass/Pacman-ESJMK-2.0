@@ -13,7 +13,8 @@
             GenesAll.Add(new GoSameDirection());
             GenesAll.Add(new GoStraight());
             GenesAll.Add(new FindFoodLine());
-            //GenesAll.Add(new FindBetterLine());
+			//GenesAll.Add(new FindBetterLine());
+			GenesAll.Add(new DoNotGoWhereGhostIs());
 
             InitializeActiveGenes();
         }

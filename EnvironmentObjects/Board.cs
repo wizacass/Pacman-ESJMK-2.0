@@ -150,5 +150,14 @@
                     m = i;
             return m;
         }
+
+		static public double DistanceAtoB(int Ax, int Ay, int Bx, int By)
+		{
+			return System.Math.Sqrt(
+				System.Math.Pow((Bx - Ax), 2) +
+				System.Math.Pow((By - Ax), 2));
+		}
+
+
     }
 }

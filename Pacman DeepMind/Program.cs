@@ -37,7 +37,7 @@
                     pgp.RandomMutation();
                 } while (rc.AreGenesAttempted(pgp.GenesActive));
             }
-
+			
             for (int i = 0; i < 50; i++)
             {
                 Game game = new Game(pgp);
