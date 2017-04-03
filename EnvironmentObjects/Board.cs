@@ -158,6 +158,40 @@
 				System.Math.Pow((By - Ax), 2));
 		}
 
+		static public bool FoodSideUp(int x, char[,] board)
+		{
+			for (int i = 0; i < x; i++)
+				for (int j = 0; j <= board.GetUpperBound(0); j++)
+					if (board[j, i] == '+')
+						return true;
+			return false;
+		}
 
-    }
+		static public bool FoodSideDown(int x, char[,] board)
+		{
+			for (int i = x + 1; i <= board.GetUpperBound(1); i++)
+				for (int j = 0; j <= board.GetUpperBound(0); j++)
+					if (board[j, i] == '+')
+						return true;
+			return false;
+		}
+
+		static public bool FoodSideLeft(int y, char[,] board)
+		{
+			for (int i = 0; i <= board.GetUpperBound(1); i++)
+				for (int j = 0; j < y; j++)
+					if (board[j, i] == '+')
+						return true;
+			return false;
+		}
+
+		static public bool FoodSideRight(int y, char[,] board)
+		{
+			for (int i = 0; i <= board.GetUpperBound(1); i++)
+				for (int j = y + 1; j <= board.GetUpperBound(0); j++)
+					if (board[j, i] == '+')
+						return true;
+			return false;
+		}
+	}
 }
