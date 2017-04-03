@@ -26,7 +26,7 @@ namespace Pacman_DeepMind
 		public int _score { get; private set; }
 		public int _turnCounter { get; private set; }
 		private int _idleCounter = 0;
-		private int _idleMax = 99;
+		private int _idleMax = 121;
 		private int _maxScore;
 		private int _aiCounter = 0;
 		private static int _generation = 0;
@@ -148,8 +148,8 @@ namespace Pacman_DeepMind
 
 				_turnCounter++;
 
-				level.Draw();
-				Thread.Sleep(100);
+				//level.Draw();
+				//Thread.Sleep(100);
 
 				if(_score == _maxScore)
 				{
