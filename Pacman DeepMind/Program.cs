@@ -38,7 +38,7 @@
 				} while (rc.AreGenesAttempted(pgp.GenesActive));
 			}
 			
-			for (int i = 0; i < 50; i++)
+			for (int i = 0; i < 200; i++)
 			{
 				Game game = new Game(pgp);
 
