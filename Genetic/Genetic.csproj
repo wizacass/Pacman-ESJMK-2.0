@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="DoNotGoWhereGhostIs.cs" />
     <Compile Include="FindBetterLine.cs" />
+    <Compile Include="FindFoodSide.cs" />
     <Compile Include="FindFoodLine.cs" />
     <Compile Include="Gene.cs" />
     <Compile Include="Generation.cs" />

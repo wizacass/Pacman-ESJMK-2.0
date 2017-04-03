@@ -15,6 +15,7 @@
             GenesAll.Add(new FindFoodLine());
 			//GenesAll.Add(new FindBetterLine());
 			GenesAll.Add(new DoNotGoWhereGhostIs());
+			GenesAll.Add(new FindFoodSide());
 
             InitializeActiveGenes();
         }
