@@ -4,201 +4,192 @@ using System.Threading;
 
 namespace Pacman_DeepMind
 {
-    using Extensions;
+	using Extensions;
 
-    public enum DIRECTION
-    {
-        UP,
-        DOWN,
-        RIGHT,
-        LEFT,
-        STOP
-    }
+	public enum DIRECTION
+	{
+		UP,
+		DOWN,
+		RIGHT,
+		LEFT,
+		STOP
+	}
 
-    class Game
-    {
-        Level level;
-        Pacman pacman;
-        Ghost ghost;
-        SimpleAI ai;
-        PathFinding path;
+	class Game
+	{
+		Level level;
+		Pacman pacman;
+		Ghost ghost;
+		SimpleAI ai;
+		PathFinding path;
 
-        public int _score { get; private set; }
-        public int _turnCounter { get; private set; }
-        private int _idleCounter = 0;
-        private int _idleMax = 99;
-        private int _maxScore;
-        private int _aiCounter = 0;
-        private static int _generation = 0;
-        private bool _isIdle = false;
-        private bool _isChasing = true;
-        private string _exitStatus;
+		public int _score { get; private set; }
+		public int _turnCounter { get; private set; }
+		private int _idleCounter = 0;
+		private int _idleMax = 121;
+		private int _maxScore;
+		private int _aiCounter = 0;
+		private static int _generation = 0;
+		private bool _isIdle = false;
+		private bool _isChasing = true;
+		private string _exitStatus;
 
-        public Game(PacManGameParameters pgp)
-        {
-            Console.Title = "Pacman AI Project";
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.BackgroundColor = ConsoleColor.White;
+		public Game(PacManGameParameters pgp)
+		{
+			Console.Title = "Pacman AI Project";
+			Console.ForegroundColor = ConsoleColor.Blue;
+			Console.BackgroundColor = ConsoleColor.White;
 
-            //GameStart();
-            //GameLoop(pgp);
-            //GameEnd();
-        }
+			//GameStart();
+			//GameLoop(pgp);
+			//GameEnd();
+		}
 
-        public void GameStart()
-        {
-            level   = new Level("level1");
-            pacman  = new Pacman(level.pX, level.pY);
-            ghost   = new Ghost(level.gX, level.gY);
-            ai      = new SimpleAI(level);
-            path    = new PathFinding(level);
+		public void GameStart()
+		{
+			level   = new Level("level1");
+			pacman  = new Pacman(level.pX, level.pY);
+			ghost   = new Ghost(level.gX, level.gY);
+			ai      = new SimpleAI(level);
+			path    = new PathFinding(level);
 
-            _score = 0;
-            _turnCounter = 0;
+			_score = 0;
+			_turnCounter = 0;
 
-            _maxScore = level.GetScore();
+			_maxScore = level.GetScore();
 
-            _generation++;
-        }
+			_generation++;
+		}
 
-        public void GameLoop(PacManGameParameters pgp)
-        {
-            var isWorking = true;
-            var t = ' '; //prev Ghost Position
+		public void GameLoop(PacManGameParameters pgp)
+		{
+			var isWorking = true;
+			var t = ' '; //prev Ghost Position
 
-            int? pacManPrevX = null;
-            int? pacManPrevY = null;
+			int? pacManPrevX = null;
+			int? pacManPrevY = null;
 
-            while(isWorking)
-            {
-                Console.Clear();
-                Console.WriteLine("\tPacman Deep Mind");
-                Console.WriteLine("   Score: " + _score + "\tMax: " + _maxScore);
-                Console.WriteLine("Curent turn: " + _turnCounter + " \tIdle for: " + _idleCounter + " turns");
-                Console.WriteLine("Generation: " + _generation);
+			while(isWorking)
+			{
+				Console.Clear();
+				Console.WriteLine("\tPacman Deep Mind");
+				Console.WriteLine("   Score: " + _score + "\tMax: " + _maxScore);
+				Console.WriteLine("Curent turn: " + _turnCounter + " \tIdle for: " + _idleCounter + " turns");
+				Console.WriteLine("Generation: " + _generation);
 
-                //SetPacManData(pacman.getX(), pacman.getY());
-                //SetGhostData(ghost.getX(), ghost.getY());
-                //level.Draw();
+				//SetPacManData(pacman.getX(), pacman.getY());
+				//SetGhostData(ghost.getX(), ghost.getY());
+				//level.Draw();
 
-<<<<<<< HEAD
-                PacManEnvironment pe = new PacManEnvironment(level._board, pacman.getX(), pacman.getY(), pacManPrevX, pacManPrevY, ghost.getX(), ghost.getY());       
-=======
-                PacManEnvironment pe = new PacManEnvironment(
+				PacManEnvironment pe = new PacManEnvironment(
 					level._board,
 					pacman.getX(),
 					pacman.getY(),
 					pacManPrevX,
 					pacManPrevY,
 					ghost.getX(),
-					ghost.getY()
-					);       
->>>>>>> refs/remotes/origin/genes
-                Directions? directions = pgp.GetMoveDirection(pe);
+					ghost.getY());       
 
-                pacManPrevX = pacman.getX();
-                pacManPrevY = pacman.getY();
+				Directions? directions = pgp.GetMoveDirection(pe);
 
-                //pacman.Input();
-                //ghost.Input();
+				pacManPrevX = pacman.getX();
+				pacManPrevY = pacman.getY();
 
-                pacman.SetDir(Converter.DirectionToDIRECTION(directions));
-                pacman.SetDir(level.Check(pacman.getX(), pacman.getY(), pacman.GetDir()));
-                pacman.Movement();
+				//pacman.Input();
+				//ghost.Input();
 
-                //ghost.SetDir(path.FindDir(pacman.getX(), pacman.getY(), ghost.getX(), ghost.getY(), pacman.GetDir()));
+				pacman.SetDir(Converter.DirectionToDIRECTION(directions));
+				pacman.SetDir(level.Check(pacman.getX(), pacman.getY(), pacman.GetDir()));
+				pacman.Movement();
 
-                if (_isChasing)
-                {
-                    ghost.SetDir(path.A_Star(ghost.getX(), ghost.getY(), pacman.getX(), pacman.getY()));
-                    _aiCounter++;
-                    if (_aiCounter > 20)
-                    {
-                        _isChasing = false;
-                        _aiCounter = 0;
-                    }
-                        
-                }
-                else
-                {
-                    ghost.SetDir(path.A_Star(ghost.getX(), ghost.getY(), level.gX, level.gY));
-                    _aiCounter++;
-                    if (_aiCounter > 10)
-                    {
-                        _isChasing = true;
-                        _aiCounter = 0;
-                    }
-                }
-                
-                ghost.SetDir(level.Check(ghost.getX(), ghost.getY(), ghost.GetDir()));
-                ghost.Movement();
+				//ghost.SetDir(path.FindDir(pacman.getX(), pacman.getY(), ghost.getX(), ghost.getY(), pacman.GetDir()));
 
-                SetPacManData(pacman.getX(), pacman.getY());
-                t = SetGhostData(ghost.getX(), ghost.getY(), t);
+				if (_isChasing)
+				{
+					ghost.SetDir(path.A_Star(ghost.getX(), ghost.getY(), pacman.getX(), pacman.getY()));
+					_aiCounter++;
+					if (_aiCounter > 20)
+					{
+						_isChasing = false;
+						_aiCounter = 0;
+					}
+						
+				}
+				else
+				{
+					ghost.SetDir(path.A_Star(ghost.getX(), ghost.getY(), level.gX, level.gY));
+					_aiCounter++;
+					if (_aiCounter > 10)
+					{
+						_isChasing = true;
+						_aiCounter = 0;
+					}
+				}
+				
+				ghost.SetDir(level.Check(ghost.getX(), ghost.getY(), ghost.GetDir()));
+				ghost.Movement();
 
-                pacman.Update();
-                ghost.Update();
-                
+				SetPacManData(pacman.getX(), pacman.getY());
+				t = SetGhostData(ghost.getX(), ghost.getY(), t);
 
-                /*
-                isWorking = ai.MoveNext();
-                Tuple<int, int> coords = ai.Current;
-                SetData(coords.Item1, coords.Item2);
-                */
-                if (_isIdle == true)
-                    _idleCounter++;
-                else
-                    _idleCounter = 0;
+				pacman.Update();
+				ghost.Update();
+				
 
-                _turnCounter++;
+				/*
+				isWorking = ai.MoveNext();
+				Tuple<int, int> coords = ai.Current;
+				SetData(coords.Item1, coords.Item2);
+				*/
+				if (_isIdle == true)
+					_idleCounter++;
+				else
+					_idleCounter = 0;
 
-<<<<<<< HEAD
-                level.Draw();
-                Thread.Sleep(100);
-=======
-                //level.Draw();
-                //Thread.Sleep(100);
->>>>>>> refs/remotes/origin/genes
+				_turnCounter++;
 
-                if(_score == _maxScore)
-                {
-                    _exitStatus = "Victory!";
-                    isWorking = false;
-                }
+				//level.Draw();
+				//Thread.Sleep(100);
 
-                if(pacman.getX() == ghost.getX() && pacman.getY() == ghost.getY())
-                {
-                    _exitStatus = "Eaten";
-                    isWorking = false;
-                }
+				if(_score == _maxScore)
+				{
+					_exitStatus = "Victory!";
+					isWorking = false;
+				}
 
-                if (_idleCounter > _idleMax)
-                {
-                    _exitStatus = "Lost";
-                    isWorking = false;
-                }
-            }
-        }
+				if(pacman.getX() == ghost.getX() && pacman.getY() == ghost.getY())
+				{
+					_exitStatus = "Eaten";
+					isWorking = false;
+				}
 
-        private void SetPacManData(int pX, int pY)
-        {
-            _score = level.CheckScore(pX, pY, _score, out _isIdle);
+				if (_idleCounter > _idleMax)
+				{
+					_exitStatus = "Lost";
+					isWorking = false;
+				}
+			}
+		}
 
-            level.SetPac(pX, pY);
-        }
+		private void SetPacManData(int pX, int pY)
+		{
+			_score = level.CheckScore(pX, pY, _score, out _isIdle);
 
-        private char SetGhostData(int gX, int gY, char c)
-        {
-            var t = level.SetGhost(gX, gY, c);
-            return t;
-        }
+			level.SetPac(pX, pY);
+		}
 
-        public void GameEnd()
-        {
-            Logger.logData(_generation, _turnCounter, _idleCounter, _score, _exitStatus);
+		private char SetGhostData(int gX, int gY, char c)
+		{
+			var t = level.SetGhost(gX, gY, c);
+			return t;
+		}
 
-            Console.Clear();
-            Console.WriteLine("Game Over!");
-        }
-    }
+		public void GameEnd()
+		{
+			Logger.logData(_generation, _turnCounter, _idleCounter, _score, _exitStatus);
+
+			Console.Clear();
+			Console.WriteLine("Game Over!");
+		}
+	}
 }
